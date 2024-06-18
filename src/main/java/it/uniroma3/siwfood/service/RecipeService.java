@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RecipeService {
+    
     @Autowired
     private RecipeRepository recipeRepository;
 
@@ -17,5 +18,9 @@ public class RecipeService {
 
     public Iterable <Recipe> findAll(){
         return recipeRepository.findAll();
+    }
+
+    public void save(Recipe recipe) {
+        recipeRepository.save(recipe);
     }
 }

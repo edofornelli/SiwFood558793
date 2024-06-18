@@ -12,7 +12,6 @@ public class IngredientService {
 
     public Ingredient findById (long id) {
         return ingredientRepository.findById(id).get();
-
     }
 
     public Iterable<Ingredient> findAll(){

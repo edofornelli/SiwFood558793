@@ -1,15 +1,11 @@
 package it.uniroma3.siwfood.model;
 
+import jakarta.persistence.*;
+
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class Recipe {
@@ -28,7 +24,6 @@ public class Recipe {
 
     public Recipe() {
     }
-
 
     public long getId() {
         return id;
@@ -56,6 +51,29 @@ public class Recipe {
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Image> images;
+
+    public Image getFirstImage() {
+        return this.images.get(0);
+    }
+
+    public List<Image> getAllImagesWithoutFirst(){
+        try {
+            return this.images.subList(1, images.size());
+        } catch(Exception e) {
+            return null;
+        }
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
 

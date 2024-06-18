@@ -1,13 +1,13 @@
 package it.uniroma3.siwfood.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class Chef {
@@ -17,9 +17,36 @@ public class Chef {
     private long id;
     private String name;
     private String surname;
+    @NotNull
+    @PastOrPresent
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthDate;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Image> images;
+
+    public Image getFirstImage() {
+        return this.images.get(0);
+    }
+
+    public List<Image> getAllImagesWithoutFirst(){
+        try {
+            return this.images.subList(1, images.size());
+        } catch(Exception e) {
+            return null;
+        }
+    }
 
     @OneToMany
     private List <Recipe> recipes;
+
+
+    public List<Image> getImages() {
+        return images;
+    }
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
 
     public long getId() {
         return id;
@@ -48,6 +75,14 @@ public class Chef {
     public List<Recipe> getRecipes() {
         return recipes;
     }
+
+    public Date getBirthDate() {
+        return this.birthDate;
+    }
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
 
     public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;
