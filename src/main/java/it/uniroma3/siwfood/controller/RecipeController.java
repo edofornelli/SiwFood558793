@@ -123,16 +123,19 @@ public class RecipeController {
     }
 
     @PostMapping ("/ingredient/{recipeId}/{IngredientId}")
-    public String addQuantita (@RequestParam("Quantita") float quantita, @PathVariable("recipeId") Long recipeId, @PathVariable("IngredientId") Long IngredientId, Model model) {
+    public String addQuantita (@RequestParam("Quantita") float quantita, @PathVariable("recipeId") Long recipeId, @PathVariable("IngredientId") Long IngredientId, BindingResult bindingResult, Model model) {
         Recipe recipe = this.recipeService.findById(recipeId);
         Ingredient ingredient = this.ingredientService.findById(IngredientId);
+
+        if(bindingResult.hasErrors()){
+            return "/Chef/addQuantity.html";
+        }
 
         RecipeIngredient nuovoIngrediente = new RecipeIngredient( recipe, ingredient, quantita);
         recipe.getIngredients().add(nuovoIngrediente);
 
         this.ingredientService.saveRecipyIngredient(nuovoIngrediente);
         this.recipeService.save(recipe);
-
 
         return "redirect:/recipe/" + recipe.getId();
     }

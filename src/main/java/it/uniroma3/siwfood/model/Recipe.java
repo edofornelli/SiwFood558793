@@ -1,6 +1,7 @@
 package it.uniroma3.siwfood.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +15,8 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @NotBlank
     private String name;
 
     @ManyToOne

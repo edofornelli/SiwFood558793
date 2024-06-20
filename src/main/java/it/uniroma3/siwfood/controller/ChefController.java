@@ -46,15 +46,21 @@ public class ChefController {
     @GetMapping("/Admin/modifyChef/{id}")
     public String modifyChef(@PathVariable("id") Long id, Model model) {
         model.addAttribute("chef", this.chefService.findById(id));
-
         return "/Admin/modifyChef.html";
     }
 
     @PostMapping("/chefUpdate")
-    public String chefUpdate(@ModelAttribute("chef") Chef chef, Model model) {
+    public String chefUpdate(@Valid @ModelAttribute("chef") Chef chef, BindingResult bindingResult, Model model) {
         Chef oldChef = this.chefService.findById(chef.getId());
         chef.setImages(oldChef.getImages());
-        this.chefService.save(chef);
+
+        if (bindingResult.hasErrors()) {
+            return "/Admin/modifyChef.html";
+        }
+        else {
+            this.chefService.save(chef);
+
+        }
         return "redirect:chef/" + chef.getId();
     }
 
