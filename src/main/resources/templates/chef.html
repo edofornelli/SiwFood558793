@@ -80,7 +80,6 @@
             <div class="col-md-6">
                 <h1 class="text-body-emphasis" th:text="${chef.name + ' ' + chef.surname}">Edoardo Fornelli</h1>
                 <h3 class="text-body-emphasis m-3" th:text="'Data di nascita: ' + ${#dates.format(chef.birthDate, 'dd-MM-yyyy')}">14/05/1992</h3>
-                <a href="/Admin/modifyChef" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Modifica dati Cuoco</a>
             </div>
         </div>
     </div>

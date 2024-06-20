@@ -20,7 +20,7 @@ public class Recipe {
     private Chef chef;
 
     @OneToMany
-    private Set <Ingredient> ingredients = new HashSet<>();
+    private Set <RecipeIngredient> ingredients = new HashSet<>();
 
     public Recipe() {
     }
@@ -43,10 +43,10 @@ public class Recipe {
 
 
 
-    public Set<Ingredient> getIngredients() {
+    public Set<RecipeIngredient> getIngredients() {
         return ingredients;
     }
-    public void setIngredients(Set<Ingredient> ingredients) {
+    public void setIngredients(Set<RecipeIngredient> ingredients) {
         this.ingredients = ingredients;
     }
     public void setName(String name) {
@@ -80,7 +80,7 @@ public class Recipe {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ingredients, name);
+        return Objects.hash(id, name);
     }
 
     @Override

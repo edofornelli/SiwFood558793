@@ -14,6 +14,8 @@ public class Ingredient {
     private String name;
 
 
+
+
     public long getId() {
         return id;
     }

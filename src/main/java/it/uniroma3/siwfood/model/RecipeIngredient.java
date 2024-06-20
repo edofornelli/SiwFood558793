@@ -15,10 +15,10 @@ public class RecipeIngredient {
     public RecipeIngredient() {
     }
 
-    public RecipeIngredient(Recipe recipe, Ingredient ingredient) {
+    public RecipeIngredient(Recipe recipe, Ingredient ingredient, float quantita ) {
         this.recipe = recipe;
         this.ingredient = ingredient;
-        this.quantity = 0;
+        this.quantity = quantita;
     }
 
     @Id
@@ -34,7 +34,7 @@ public class RecipeIngredient {
     private Ingredient ingredient;
 
     @PositiveOrZero
-    private int quantity;
+    private float quantity;
 
     public Long getId() {
         return id;
@@ -60,11 +60,11 @@ public class RecipeIngredient {
         this.ingredient = ingredient;
     }
 
-    public int getQuantity() {
+    public float getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(float quantity) {
         this.quantity = quantity;
     }
 

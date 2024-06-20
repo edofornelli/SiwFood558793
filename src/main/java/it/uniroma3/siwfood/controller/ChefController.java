@@ -2,6 +2,7 @@ package it.uniroma3.siwfood.controller;
 
 import it.uniroma3.siwfood.model.Chef;
 import it.uniroma3.siwfood.model.Image;
+import it.uniroma3.siwfood.model.Ingredient;
 import it.uniroma3.siwfood.model.Recipe;
 import it.uniroma3.siwfood.service.ChefService;
 import jakarta.validation.Valid;
@@ -28,10 +29,10 @@ public class ChefController {
     }
 
 
-    @GetMapping("/chefs")
+    @GetMapping("/Admin/chefs")
     public String showChefs (Model model) {
-        model.addAttribute("chefs", this.chefService.findAll());
-        return "chefs.html";
+        model.addAttribute("listaChefs", this.chefService.findAll());
+        return "/Admin/chefs.html";
     }
 
 
@@ -40,10 +41,24 @@ public class ChefController {
         return "/Admin/chefOperations.html";
     }
 
-    @GetMapping("/Admin/modifyChef")
-    public String modifyChef(Model model) {
+
+
+    @GetMapping("/Admin/modifyChef/{id}")
+    public String modifyChef(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("chef", this.chefService.findById(id));
+
         return "/Admin/modifyChef.html";
     }
+
+    @PostMapping("/chefUpdate")
+    public String chefUpdate(@ModelAttribute("chef") Chef chef, Model model) {
+        Chef oldChef = this.chefService.findById(chef.getId());
+        chef.setImages(oldChef.getImages());
+        this.chefService.save(chef);
+        return "redirect:chef/" + chef.getId();
+    }
+
+
 
     @GetMapping("/Admin/formNewChef")
     public String formNewChef(Model model) {
@@ -56,13 +71,6 @@ public class ChefController {
         model.addAttribute("chef", new Chef());
         return "addChef.html";
     }
-
-//    @PostMapping("/chef")
-//    public String newChef(@ModelAttribute("chef") Chef chef, Model model) {
-//        this.chefService.save(chef);
-//        model.addAttribute("chef", chef);
-//        return "redirect:chef/" + chef.getId();
-//    }
 
 
     @PostMapping("/chef")
