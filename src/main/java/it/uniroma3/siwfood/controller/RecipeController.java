@@ -42,6 +42,7 @@ public class RecipeController {
         return "recipes.html";
     }
 
+
     @GetMapping("/Chef/recipeOperations")
     public String recipeOperations(Model model) {
         return "/Chef/recipeOperations.html";
@@ -53,11 +54,7 @@ public class RecipeController {
         return "/Chef/formNewRecipe.html";
     }
 
-    @GetMapping("/formSearchRecipe")
-    public String formSearchRecipe(Model model) {
-        model.addAttribute("recipe");
-        return "formSearchRecipe.html";
-    }
+
 
 //    @PostMapping("/recipe")
 //    public String newRecipe(@ModelAttribute("recipe") Recipe recipe, Model model) {
@@ -95,11 +92,11 @@ public class RecipeController {
 
 
 
-    @GetMapping("/Chef/addIngredient/{recipeId}/{ChefId}")
-    public String addChef(@PathVariable("recipeId") Long recipeId, @PathVariable("ChefId") Long ChefId, Model model) {
+    @GetMapping("/Chef/addIngredient/{recipeId}/{IngredientId}")
+    public String addChef(@PathVariable("recipeId") Long recipeId, @PathVariable("IngredientId") Long IngredientId, Model model) {
 
         model.addAttribute("recipeId" , recipeId);
-        model.addAttribute("ChefId" , ChefId);
+        model.addAttribute("IngredientId" , IngredientId);
 
         return "/Chef/addQuantity.html";
     }
@@ -113,23 +110,10 @@ public class RecipeController {
     }
 
 
-    @GetMapping("/Chef/addIngredient/{recipeId}/{IngredientId}")
-    public String addIngredient(@PathVariable("recipeId") Long recipeId, @PathVariable("IngredientId") Long IngredientId, Model model) {
-
-        model.addAttribute("recipeId" , recipeId);
-        model.addAttribute("IngredientId" , IngredientId);
-
-        return "/Chef/addQuantity.html";
-    }
-
     @PostMapping ("/ingredient/{recipeId}/{IngredientId}")
-    public String addQuantita (@RequestParam("Quantita") float quantita, @PathVariable("recipeId") Long recipeId, @PathVariable("IngredientId") Long IngredientId, BindingResult bindingResult, Model model) {
+    public String addQuantita (@RequestParam("Quantita") float quantita, @PathVariable("recipeId") Long recipeId, @PathVariable("IngredientId") Long IngredientId,  Model model) {
         Recipe recipe = this.recipeService.findById(recipeId);
         Ingredient ingredient = this.ingredientService.findById(IngredientId);
-
-        if(bindingResult.hasErrors()){
-            return "/Chef/addQuantity.html";
-        }
 
         RecipeIngredient nuovoIngrediente = new RecipeIngredient( recipe, ingredient, quantita);
         recipe.getIngredients().add(nuovoIngrediente);

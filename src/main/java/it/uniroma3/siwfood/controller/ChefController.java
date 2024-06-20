@@ -2,8 +2,6 @@ package it.uniroma3.siwfood.controller;
 
 import it.uniroma3.siwfood.model.Chef;
 import it.uniroma3.siwfood.model.Image;
-import it.uniroma3.siwfood.model.Ingredient;
-import it.uniroma3.siwfood.model.Recipe;
 import it.uniroma3.siwfood.service.ChefService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +28,16 @@ public class ChefController {
 
 
     @GetMapping("/Admin/chefs")
-    public String showChefs (Model model) {
+    public String showChefsToAdd (Model model) {
         model.addAttribute("listaChefs", this.chefService.findAll());
         return "/Admin/chefs.html";
     }
 
+    @GetMapping("/searchChefs")
+    public String showChefs (Model model) {
+        model.addAttribute("listaChefs", this.chefService.findAll());
+        return "/chefs.html";
+    }
 
     @GetMapping("/Admin/chefOperations")
     public String recipeOperations(Model model) {

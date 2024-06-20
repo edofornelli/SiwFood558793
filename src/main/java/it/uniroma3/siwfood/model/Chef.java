@@ -43,6 +43,7 @@ public class Chef {
         }
     }
 
+
     @OneToMany
     private List <Recipe> recipes;
 
