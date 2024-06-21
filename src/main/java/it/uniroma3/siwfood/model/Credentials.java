@@ -2,6 +2,8 @@ package it.uniroma3.siwfood.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.repository.cdi.Eager;
 
 import java.util.Objects;
@@ -9,6 +11,7 @@ import java.util.Objects;
 @Entity
 public class Credentials {
 
+    public static final String GENERIC_ROLE = "GENERIC";
     public static final String CHEF_ROLE = "CHEF";
     public static final String ADMIN_ROLE = "ADMIN";
 
@@ -23,7 +26,8 @@ public class Credentials {
 
     @NotBlank
     private String password;
-    @NotBlank
+
+    //nunpuoi mette @NotBlank perche' e' un campo che non e' visibile all'utente e ritorna vuoto dal form
     private String role;
 
 

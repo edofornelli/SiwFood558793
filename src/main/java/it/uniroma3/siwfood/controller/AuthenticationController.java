@@ -36,7 +36,7 @@ public class AuthenticationController {
 
     @GetMapping(value = "/login")
     public String showLoginForm (Model model) {
-        return "formLogin";
+        return "login.html";
     }
 
     @GetMapping(value = "/")
@@ -60,6 +60,7 @@ public class AuthenticationController {
 
         UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+
         if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
             return "admin/indexAdmin.html";
         }
@@ -68,17 +69,22 @@ public class AuthenticationController {
 
     @PostMapping(value = { "/register" })
     public String registerUser(@Valid @ModelAttribute("user") User user,
-                               BindingResult userBindingResult, @Valid
+                               BindingResult userBindingResult,
+                               @Valid
                                @ModelAttribute("credentials") Credentials credentials,
                                BindingResult credentialsBindingResult,
                                Model model) {
-        if(!userBindingResult.hasErrors() && ! credentialsBindingResult.hasErrors()) {
+
+         if(!userBindingResult.hasErrors() && ! credentialsBindingResult.hasErrors()) {
             userService.saveUser(user);
             credentials.setUser(user);
+
+            credentials.setRole(Credentials.GENERIC_ROLE);
             credentialsService.saveCredentials(credentials);
             model.addAttribute("user", user);
-            return "registrationSuccessful";
+
+            return "redirect:/";
         }
-        return "registerUser";
+        return "formRegisterUser";
     }
 }
