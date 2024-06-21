@@ -30,8 +30,7 @@ public class RecipeController {
     @GetMapping("/recipe/{id}")
     public String getRecipe (@PathVariable("id") Long id, Model model) {
         model.addAttribute("recipe", this.recipeService.findById(id));
-        model.addAttribute("ingredients", this.ingredientService.findAllRecipeIngredients());
-
+        model.addAttribute("ingredients", this.recipeService.findById(id).getIngredients());
         return "recipe.html";
     }
 
@@ -112,16 +111,8 @@ public class RecipeController {
 
     @PostMapping ("/ingredient/{recipeId}/{IngredientId}")
     public String addQuantita (@RequestParam("Quantita") float quantita, @PathVariable("recipeId") Long recipeId, @PathVariable("IngredientId") Long IngredientId,  Model model) {
-        Recipe recipe = this.recipeService.findById(recipeId);
-        Ingredient ingredient = this.ingredientService.findById(IngredientId);
-
-        RecipeIngredient nuovoIngrediente = new RecipeIngredient( recipe, ingredient, quantita);
-        recipe.getIngredients().add(nuovoIngrediente);
-
-        this.ingredientService.saveRecipyIngredient(nuovoIngrediente);
-        this.recipeService.save(recipe);
-
-        return "redirect:/recipe/" + recipe.getId();
+        this.recipeService.saveRecipeIngredientToRecipe(quantita, recipeId, IngredientId);
+        return "redirect:/recipe/" + recipeId;
     }
 
 }

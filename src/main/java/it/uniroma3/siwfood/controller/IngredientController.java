@@ -1,7 +1,6 @@
 package it.uniroma3.siwfood.controller;
 
 import it.uniroma3.siwfood.model.Ingredient;
-import it.uniroma3.siwfood.repository.IngredientRepository;
 import it.uniroma3.siwfood.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -95,7 +95,7 @@ public class Recipe {
         if (getClass() != obj.getClass())
             return false;
         Recipe other = (Recipe) obj;
-        return id == other.id && Objects.equals(ingredients, other.ingredients) && Objects.equals(name, other.name);
+        return id == other.id && Objects.equals(chef, other.chef) && Objects.equals(name, other.name);
     }
 
 }
