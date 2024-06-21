@@ -9,12 +9,17 @@ import java.util.Objects;
 @Entity
 public class Credentials {
 
+    public static final String CHEF_ROLE = "CHEF";
+    public static final String ADMIN_ROLE = "ADMIN";
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @NotBlank
     private String username;
+
+
 
     @NotBlank
     private String password;
@@ -24,6 +29,14 @@ public class Credentials {
 
     @OneToOne (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public long getId() {
         return id;

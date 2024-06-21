@@ -13,7 +13,7 @@
 
     <h1 class="mb-4">Aggiungi un Ingrediente</h1>
 
-    <form th:action="@{/ingredient}" method="POST" th:object="${ingredient}">
+    <form th:action="@{/Chef/ingredient}" method="POST" th:object="${ingredient}">
         <div class="mb-3">
             <label for="inputNome" class="form-label">Nome:</label>
             <input type="text" class="form-control" id="inputNome" name="name" required th:field="${ingredient.name}">

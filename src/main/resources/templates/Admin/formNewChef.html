@@ -63,7 +63,7 @@
 
   <h1 class="mb-4">Aggiungi uno Chef</h1>
 
-  <form th:action="@{/chef}" method="POST" th:object="${chef}" enctype="multipart/form-data">
+  <form th:action="@{/Admin/chef}" method="POST" th:object="${chef}" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="inputNome" class="form-label">Nome:</label>
       <input type="text" class="form-control" id="inputNome" name="name" required th:field="${chef.name}">

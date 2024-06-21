@@ -28,7 +28,7 @@ public class IngredientController {
         return "/Chef/formNewIngredient";
     }
 
-    @PostMapping("/ingredient")
+    @PostMapping("/Chef/ingredient")
     public String newIngredient(@ModelAttribute("ingredient") Ingredient ingredient, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "/Chef/formNewIngredient";

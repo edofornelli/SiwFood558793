@@ -52,7 +52,7 @@ public class ChefController {
         return "/Admin/modifyChef.html";
     }
 
-    @PostMapping("/chefUpdate")
+    @PostMapping("/Admin/chefUpdate")
     public String chefUpdate(@Valid @ModelAttribute("chef") Chef chef, BindingResult bindingResult, Model model) {
         Chef oldChef = this.chefService.findById(chef.getId());
         chef.setImages(oldChef.getImages());
@@ -75,14 +75,14 @@ public class ChefController {
         return "/Admin/formNewChef.html";
     }
 
-    @GetMapping("/addChef")
+    @GetMapping("/Admin/addChef")
     public String addChef(Model model) {
         model.addAttribute("chef", new Chef());
         return "addChef.html";
     }
 
 
-    @PostMapping("/chef")
+    @PostMapping("/Admin/chef")
     public String newChef(@RequestParam("files") MultipartFile[] files, @Valid @ModelAttribute("chef") Chef chef, BindingResult bindingResult, Model model) {
 
             if(files==null) {

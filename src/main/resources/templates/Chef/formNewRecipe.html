@@ -46,7 +46,7 @@
 
 	<h1 class="mb-4">Aggiungi una ricetta</h1>
 
-	<form th:action="@{/recipe}" method="POST" th:object="${recipe}" enctype="multipart/form-data">
+	<form th:action="@{/Chef/recipe}" method="POST" th:object="${recipe}" enctype="multipart/form-data">
 		<div class="mb-3">
 			<label for="inputNome" class="form-label">Nome:</label>
 			<input type="text" class="form-control" id="inputNome" name="name" required th:field="${recipe.name}">

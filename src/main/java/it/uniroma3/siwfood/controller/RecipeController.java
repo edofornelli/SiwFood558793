@@ -62,7 +62,7 @@ public class RecipeController {
 //        return "redirect:recipe/"+recipe.getId();
 //    }
 
-    @PostMapping("/recipe")
+    @PostMapping("/Chef/recipe")
     public String newRecipe(@RequestParam("files") MultipartFile[] files, @Valid @ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult, Model model) {
 
         if(files==null) {
@@ -109,7 +109,7 @@ public class RecipeController {
     }
 
 
-    @PostMapping ("/ingredient/{recipeId}/{IngredientId}")
+    @PostMapping ("/Chef/ingredient/{recipeId}/{IngredientId}")
     public String addQuantita (@RequestParam("Quantita") float quantita, @PathVariable("recipeId") Long recipeId, @PathVariable("IngredientId") Long IngredientId,  Model model) {
         this.recipeService.saveRecipeIngredientToRecipe(quantita, recipeId, IngredientId);
         return "redirect:/recipe/" + recipeId;
