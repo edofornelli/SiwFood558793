@@ -1,5 +1,6 @@
 package it.uniroma3.siwfood.controller;
 
+import it.uniroma3.siwfood.controller.validator.IngredientValidator;
 import it.uniroma3.siwfood.model.Ingredient;
 import it.uniroma3.siwfood.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class IngredientController {
 
     @Autowired
     IngredientService ingredientService;
+    @Autowired
+    IngredientValidator IngredientValidator;
 
     @GetMapping("/Chef/ingredientOperations")
     public String ingredientOperations(Model model) {
@@ -30,6 +33,8 @@ public class IngredientController {
 
     @PostMapping("/Chef/ingredient")
     public String newIngredient(@ModelAttribute("ingredient") Ingredient ingredient, BindingResult bindingResult, Model model) {
+        this.IngredientValidator.validate(ingredient, bindingResult);
+
         if (bindingResult.hasErrors()) {
             return "/Chef/formNewIngredient";
         }

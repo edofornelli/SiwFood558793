@@ -19,6 +19,7 @@ public class User {
     @NotBlank
     private String surname;
 
+
     public long getId() {
         return id;
     }

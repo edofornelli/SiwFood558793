@@ -1,5 +1,6 @@
 package it.uniroma3.siwfood.controller;
 
+import it.uniroma3.siwfood.controller.validator.RecipeValidator;
 import it.uniroma3.siwfood.model.*;
 import it.uniroma3.siwfood.service.ChefService;
 import it.uniroma3.siwfood.service.IngredientService;
@@ -26,6 +27,10 @@ public class RecipeController {
 
     @Autowired
     ChefService chefService;
+
+    @Autowired
+    private RecipeValidator recipeValidator;
+
 
     @GetMapping("/recipe/{id}")
     public String getRecipe (@PathVariable("id") Long id, Model model) {
@@ -55,15 +60,10 @@ public class RecipeController {
 
 
 
-//    @PostMapping("/recipe")
-//    public String newRecipe(@ModelAttribute("recipe") Recipe recipe, Model model) {
-//        this.recipeService.save(recipe);
-//        model.addAttribute("recipe", recipe);
-//        return "redirect:recipe/"+recipe.getId();
-//    }
-
     @PostMapping("/Chef/recipe")
     public String newRecipe(@RequestParam("files") MultipartFile[] files, @Valid @ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult, Model model) {
+
+        this.recipeValidator.validate(recipe, bindingResult);
 
         if(files==null) {
             bindingResult.reject("image.null");
@@ -85,20 +85,9 @@ public class RecipeController {
             }
         }
         this.recipeService.save(recipe);
-        return "redirect:recipe/" + recipe.getId();
+        return "redirect:/recipe/" + recipe.getId();
     }
 
-
-
-
-    @GetMapping("/Chef/addIngredient/{recipeId}/{IngredientId}")
-    public String addChef(@PathVariable("recipeId") Long recipeId, @PathVariable("IngredientId") Long IngredientId, Model model) {
-
-        model.addAttribute("recipeId" , recipeId);
-        model.addAttribute("IngredientId" , IngredientId);
-
-        return "/Chef/addQuantity.html";
-    }
 
     @GetMapping("/Chef/addIngredient/{recipeId}")
     public String addIngredient(@PathVariable("recipeId") Long recipeId,Model model) {
@@ -108,10 +97,35 @@ public class RecipeController {
         return "/Chef/addIngredient.html";
     }
 
+    @GetMapping("/Chef/addIngredient/{recipeId}/{IngredientId}")
+    public String addIngredientQuantity(@PathVariable("recipeId") Long recipeId, @PathVariable("IngredientId") Long IngredientId, Model model) {
+
+        model.addAttribute("recipeId" , recipeId);
+        model.addAttribute("IngredientId" , IngredientId);
+
+        return "/Chef/addQuantity.html";
+    }
 
     @PostMapping ("/Chef/ingredient/{recipeId}/{IngredientId}")
-    public String addQuantita (@RequestParam("Quantita") float quantita, @PathVariable("recipeId") Long recipeId, @PathVariable("IngredientId") Long IngredientId,  Model model) {
+    public String addQuantita (@RequestParam("Quantita") float quantita, @PathVariable("recipeId") Long recipeId, @PathVariable("IngredientId") Long IngredientId, Model model) {
         this.recipeService.saveRecipeIngredientToRecipe(quantita, recipeId, IngredientId);
+        return "redirect:/recipe/" + recipeId;
+    }
+
+
+
+    @GetMapping("/Chef/addChef/{recipeId}")
+    public String addIChef(@PathVariable("recipeId") Long recipeId,Model model) {
+        model.addAttribute("recipeId" , recipeId);
+        model.addAttribute("listachef", chefService.findAll());
+        return "/Chef/addChefToRecipe.html";
+    }
+
+    @GetMapping ("/Chef/addChefToRecipe/{recipeId}/{ChefId}")
+    public String confermaChef (@PathVariable("recipeId") Long recipeId, @PathVariable("ChefId") Long ChefId, Model model){
+        model.addAttribute("recipeId" , recipeId);
+        model.addAttribute("IngredientId" , ChefId);
+        this.recipeService.saveChefToRecipe(recipeId, ChefId);
         return "redirect:/recipe/" + recipeId;
     }
 

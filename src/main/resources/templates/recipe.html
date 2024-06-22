@@ -39,10 +39,16 @@
 					<li th:each="recipeIngredient : ${ingredients}" class="list-group-item" th:text="' ' + ${recipeIngredient.ingredient.name} + ' - ' + ${recipeIngredient.quantity}+ ' grammi '">Farina 00 - 100 grammi</li>
 				</ul>
 
-				<h2 class="mt-5">Operazioni di Modifica</h2>
-				<div class="d-grid gap-2 col-6 mx-auto">
-					<a th:href="@{'/Chef/addIngredient' + '/' +${recipe.id}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Aggiungi Ingrediente</a>
-				</div>
+						<h2 class="mt-5">Operazioni di Modifica</h2>
+						<div class="d-grid gap-2 col-6 mx-auto">
+							<a th:href="@{'/Chef/addIngredient' + '/' +${recipe.id}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Aggiungi Ingrediente</a>
+						</div>
+
+						<div class="d-grid gap-2 col-6 mx-auto">
+							<a th:href="@{'/Chef/addChef' + '/' +${recipe.id}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Aggiungi Chef</a>
+						</div>
+
+
 			</div>
 		</div>
 	</div>

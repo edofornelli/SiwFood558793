@@ -105,8 +105,7 @@ public class ChefController {
                 }
             }
             this.chefService.save(chef);
-            return "redirect:chef/" + chef.getId();
+            return "redirect:/chef/" + chef.getId();
     }
-
 
 }

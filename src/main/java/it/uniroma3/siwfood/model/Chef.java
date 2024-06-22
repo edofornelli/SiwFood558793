@@ -28,6 +28,7 @@ public class Chef {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Image> images;
 
@@ -93,6 +94,11 @@ public class Chef {
 
     public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;
+    }
+
+    @Override
+    public String toString() {
+        return " "  + name + " " + surname + " ";
     }
 
     @Override

@@ -38,6 +38,10 @@ public class Credentials {
         return user;
     }
 
+    public boolean isAdmin() {
+        return this.role.equals(ADMIN_ROLE);
+    }
+
     public void setUser(User user) {
         this.user = user;
     }

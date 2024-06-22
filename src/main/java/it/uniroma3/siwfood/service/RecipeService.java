@@ -1,5 +1,7 @@
 package it.uniroma3.siwfood.service;
 
+import it.uniroma3.siwfood.controller.validator.RecipeIngredientValidator;
+import it.uniroma3.siwfood.model.Chef;
 import it.uniroma3.siwfood.model.Ingredient;
 import it.uniroma3.siwfood.model.Recipe;
 import it.uniroma3.siwfood.model.RecipeIngredient;
@@ -7,6 +9,7 @@ import it.uniroma3.siwfood.repository.IngredientRepository;
 import it.uniroma3.siwfood.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 @Service
 public class RecipeService {
@@ -16,6 +19,10 @@ public class RecipeService {
 
     @Autowired
     private IngredientService ingredientService;
+
+    @Autowired
+    private ChefService chefService;
+    private RecipeIngredientValidator RecipeIngredientValidator;
 
     public Recipe findById (long id) {
         return recipeRepository.findById(id).get();
@@ -35,12 +42,25 @@ public class RecipeService {
     Recipe recipe = this.findById(recipeId);
     Ingredient ingredient = this.ingredientService.findById(IngredientId);
 
-    RecipeIngredient nuovoIngrediente = new RecipeIngredient( recipe, ingredient, quantita);
-    recipe.getIngredients().add(nuovoIngrediente);
 
+
+    RecipeIngredient nuovoIngrediente = new RecipeIngredient( recipe, ingredient, quantita);
+
+    recipe.getIngredients().add(nuovoIngrediente);
     this.ingredientService.saveRecipyIngredient(nuovoIngrediente);
     this.save(recipe);
 
+
+//    recipe.getIngredients().add(nuovoIngrediente);
+//    this.ingredientService.saveRecipyIngredient(nuovoIngrediente);
+//    this.save(recipe);
+
     }
 
+    public void saveChefToRecipe(Long recipeId, Long chefId) {
+        Recipe recipe = this.findById(recipeId);
+        Chef chef = this.chefService.findById(chefId);
+        recipe.setChef(chef);
+        this.save(recipe);
+    }
 }

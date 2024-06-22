@@ -13,8 +13,10 @@ import it.uniroma3.siwfood.service.CredentialsService;
 
 @ControllerAdvice
 public class GlobalController {
+
     @Autowired
     private CredentialsService credentialsService;
+
 
     @ModelAttribute("userDetails")
     public UserDetails getUser() {
@@ -26,6 +28,7 @@ public class GlobalController {
         }
         return user;
     }
+
 
     @ModelAttribute("credenziali")
     public Credentials getCredentials() {
