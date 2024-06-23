@@ -107,8 +107,17 @@ public class RecipeController {
     }
 
     @PostMapping ("/Chef/ingredient/{recipeId}/{IngredientId}")
-    public String addQuantita (@RequestParam("Quantita") float quantita, @PathVariable("recipeId") Long recipeId, @PathVariable("IngredientId") Long IngredientId, Model model) {
-        this.recipeService.saveRecipeIngredientToRecipe(quantita, recipeId, IngredientId);
+    public String addIngredienteEQuantitaARicetta (@RequestParam("Quantita") float quantita, @PathVariable("recipeId") Long recipeId, @PathVariable("IngredientId") Long IngredientId, Model model) {
+
+        try {
+            this.recipeService.saveRecipeIngredientToRecipe(quantita, recipeId, IngredientId);
+        }
+
+        catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "/error.html";
+        }
+
         return "redirect:/recipe/" + recipeId;
     }
 
