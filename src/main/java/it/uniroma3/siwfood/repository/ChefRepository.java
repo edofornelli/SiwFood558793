@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ChefRepository extends CrudRepository<Chef, Long> {
 
+
+    public boolean existsByNameAndSurname(String name, String surname);
 }

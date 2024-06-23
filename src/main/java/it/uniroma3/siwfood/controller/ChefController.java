@@ -1,5 +1,6 @@
 package it.uniroma3.siwfood.controller;
 
+import it.uniroma3.siwfood.controller.validator.ChefValidator;
 import it.uniroma3.siwfood.model.Chef;
 import it.uniroma3.siwfood.model.Image;
 import it.uniroma3.siwfood.service.ChefService;
@@ -19,6 +20,9 @@ public class ChefController {
 
     @Autowired
     ChefService chefService;
+
+    @Autowired
+    ChefValidator chefValidator;
 
     @GetMapping("/chef/{id}")
     public String getChef (@PathVariable("id") Long id, Model model) {
@@ -104,6 +108,13 @@ public class ChefController {
                     bindingResult.reject("image.readError");
                 }
             }
+
+            this.chefValidator.validate(chef, bindingResult);
+
+            if (bindingResult.hasErrors()) {
+                return "/Admin/formNewChef.html";
+            }
+
             this.chefService.save(chef);
             return "redirect:/chef/" + chef.getId();
     }
