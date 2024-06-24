@@ -45,12 +45,8 @@ public class RecipeService {
         RecipeIngredient nuovoIngrediente = new RecipeIngredient( recipe, ingredient, quantita);
 
         if (recipe.getIngredients().contains(nuovoIngrediente)){
-            System.out.println("porco dio ci entra nell'if?");
             throw new RuntimeException("Ingrediente gia presente in questa ricetta");
-
         }
-
-        System.out.println("porco dio non ci entra nel if?");
 
         recipe.getIngredients().add(nuovoIngrediente);
         this.ingredientService.saveRecipyIngredient(nuovoIngrediente);
