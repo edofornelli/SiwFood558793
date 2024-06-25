@@ -9,49 +9,33 @@
 <body>
 
 <div class="container py-4">
-    <a href="/" class="d-block mb-4"><img src="/Images/logo-siwfood.png" width="10%" alt="SiwFood Logo"></a>
-
-    <div th:unless="${userDetails}" class="col-md-3 text-end">
-        <a href="/login"><button type="button" class="btn btn-outline-primary me-2" th:text="'Login'"></button></a>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="/"><img src="/Images/logo-siwfood.png" width="50%" alt="SiwFood Logo"></a>
+        <div>
+            <a href="/login" class="btn btn-outline-primary me-2" th:unless="${userDetails}">Login</a>
+            <a href="/register" class="btn btn-outline-primary" th:unless="${userDetails}">Registrati</a>
+        </div>
     </div>
 
-    <h1 class="mb-4">Consulta</h1>
-
-    <div class="mb-4">
-        <a href="/recipes" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Ricette</a>
+    <h1 class="mb-4 text-primary">Consulta</h1>
+    <div class="d-grid gap-3 mb-4">
+        <a href="/recipes" class="btn btn-primary btn-lg">Ricette</a>
+        <a href="/searchChefs" class="btn btn-primary btn-lg">Cuochi</a>
     </div>
 
-    <div class="mb-4">
-        <a href="/searchChefs" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Cuochi</a>
+    <h1 class="mb-4 text-primary">Operazioni Chef su Ricette</h1>
+    <div class="d-grid gap-3 mb-4">
+        <a href="/Chef/recipeOperations" class="btn btn-primary btn-lg">Creazione ricette</a>
+        <a href="/Chef/ingredientOperations" class="btn btn-primary btn-lg">Creazione Ingredienti</a>
     </div>
 
-    <h1 class="mb-4">Operazioni Chef su Ricette</h1>
-
-    <div class="mb-4">
-        <a href="/Chef/recipeOperations" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Creazione ricette</a>
+    <h1 class="mb-4 text-primary">Operazioni Amministratore</h1>
+    <div class="d-grid gap-3">
+        <a href="/Admin/chefOperations" class="btn btn-primary btn-lg">Operazioni sui cuochi</a>
     </div>
-
-
-    <div class="mb-4">
-        <a href="/Chef/ingredientOperations" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Creazione Ingredienti</a>
-    </div>
-
-    <h1 class="mb-4">Operazioni Amministratore</h1>
-
-    <div>
-        <a href="/Admin/chefOperations" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Operazioni sui cuochi</a>
-    </div>
-
-    <h1 class="mb-4">Operazioni Amministratore</h1>
-
-    <div>
-        <a href="/Admin/assegnaRuoloUtente" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Assegna Ruolo Utente</a>
-    </div>
-
-
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>
+

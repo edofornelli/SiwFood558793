@@ -62,6 +62,8 @@ public class RecipeService {
         Recipe recipe = this.findById(recipeId);
         Chef chef = this.chefService.findById(chefId);
         recipe.setChef(chef);
+        chef.getRecipes().add(recipe);
+        this.chefService.save(chef);
         this.save(recipe);
     }
 }

@@ -22,4 +22,11 @@ public class ChefService {
     public void save(Chef chef) {
         chefRepository.save(chef);
     }
+
+    public void update(Chef chef) {
+
+
+
+    }
+
 }
