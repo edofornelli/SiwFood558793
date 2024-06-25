@@ -60,7 +60,7 @@ public class ChefController {
     public String chefUpdate(@Valid @ModelAttribute("chef") Chef chef, BindingResult bindingResult, Model model) {
         Chef oldChef = this.chefService.findById(chef.getId());
         chef.setImages(oldChef.getImages());
-
+        chef.setRecipes(oldChef.getRecipes());
         if (bindingResult.hasErrors()) {
             return "/Admin/modifyChef.html";
         }
@@ -68,7 +68,7 @@ public class ChefController {
             this.chefService.save(chef);
 
         }
-        return "redirect:chef/" + chef.getId();
+        return "redirect:/chef/" + chef.getId();
     }
 
 
