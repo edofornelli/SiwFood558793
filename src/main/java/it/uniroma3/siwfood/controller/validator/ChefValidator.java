@@ -1,7 +1,6 @@
 package it.uniroma3.siwfood.controller.validator;
 
 import it.uniroma3.siwfood.model.Chef;
-import it.uniroma3.siwfood.model.Ingredient;
 import it.uniroma3.siwfood.repository.ChefRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,8 +22,7 @@ public class ChefValidator implements Validator {
     }
     @Override
     public boolean supports(Class<?> aClass) {
-        return Ingredient.class.equals(aClass);
+        return Chef.class.equals(aClass);
     }
-
 
 }
